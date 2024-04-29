@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=scr, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Define the correct password
+        const correctPassword = "secret123";
+        
+        // Define the number of attempts allowed
+        const maxAttempts = 3;
+        let attempts = 0;
+        
+        // Function to prompt the user for password input
+        function getPassword() {
+            let userInput = prompt("Enter your password:");
+        
+            // Check if the entered password is correct
+            if (userInput === correctPassword) {
+                alert("Success! You've logged in.");
+            } else {
+                attempts++;
+                if (attempts < maxAttempts) {
+                    alert(`Incorrect password. You have ${maxAttempts - attempts} attempts left.`);
+                    getPassword(); // Recursive call to prompt for password again
+                } else {
+                    alert("You've exceeded the maximum number of attempts. Account locked.");
+                }
+            }
+        }
+        
+        // Call the getPassword function to start the program
+        getPassword();
+        
+        
+        
+        </script>
+</body>
+</html>
+
+

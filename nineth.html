@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Form Validation</h2>
+
+  <form id="myForm" onsubmit="return validateForm()">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <span id="nameError" class="error"></span><br>
+
+    <label for="number">Number:</label><br>
+    <input type="text" id="number" name="number"><br>
+    <span id="numberError" class="error"></span><br>
+
+    <label for="address">Address:</label><br>
+    <textarea id="address" name="address"></textarea><br>
+    <span id="addressError" class="error"></span><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <span id="emailError" class="error"></span><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <span id="passwordError" class="error"></span><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <button onclick="stop()">Stop Time</button>
+
+  <div id="slider">
+    <img id="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk01Yp6r87Y7lcnEW5ruUQGNUhHw82OtBX5XXNNYgtf6pnSpKZfXgUAStPqz2Q1GgBxUI&usqp=CAU" alt="Image">
+  </div>
+
+  <script>
+    // Define an array of image URLs
+var images = ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNourSwPNkMxOwrA-5YbWtjaZRJa5rfLnmMPzkgXVN4EEv-h6Ko4ENEqL5ABwhPO3CcsM&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_hSaFP5JbncuTXzjrkCKFtaZN3ekbDKZL5H9WmJYc5XGk17cF5Re4zU_Rh9S1nzE-FP0&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk01Yp6r87Y7lcnEW5ruUQGNUhHw82OtBX5XXNNYgtf6pnSpKZfXgUAStPqz2Q1GgBxUI&usqp=CAU","https://e0.pxfuel.com/wallpapers/692/714/desktop-wallpaper-beautiful-nature-latest-beauty-nature.jpg"];
+
+// Initialize an index to keep track of the current image
+var currentIndex = 0;
+
+// Function to change the image
+function changeImage() {
+  // Get the image element
+  var img = document.getElementById("image");
+  
+  // Set the src attribute to the next image URL
+  img.src = images[currentIndex];
+  console.log(currentIndex)
+  // Increment the index to move to the next image
+  currentIndex++;
+  
+  // Reset the index to 0 if it exceeds the length of the images array
+  if (currentIndex >= images.length) {
+    currentIndex = 0;
+  }
+}
+
+// Call the changeImage function initially
+changeImage();
+
+// Set an interval to call the changeImage function every 1000 milliseconds (1 second)
+setInterval(changeImage, 1000);
+
+
+    function validateForm() {
+      var name = document.getElementById("name").value;
+      var number = document.getElementById("number").value;
+      var address = document.getElementById("address").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+
+      var nameError = document.getElementById("nameError");
+      var numberError = document.getElementById("numberError");
+      var addressError = document.getElementById("addressError");
+      var emailError = document.getElementById("emailError");
+      var passwordError = document.getElementById("passwordError");
+
+      nameError.innerHTML = "";
+      numberError.innerHTML = "";
+      addressError.innerHTML = "";
+      emailError.innerHTML = "";
+      passwordError.innerHTML = "";
+
+      var isValid = true;
+
+      if (name == "") {
+        nameError.innerHTML = "Name is required";
+        isValid = false;
+      }
+
+      if (number == "") {
+        numberError.innerHTML = "Number is required";
+        isValid = false;
+      }
+
+      if (address == "") {
+        addressError.innerHTML = "Address is required";
+        isValid = false;
+      }
+
+      if (email == "") {
+        emailError.innerHTML = "Email is required";
+        isValid = false;
+      } else if (!isValidEmail(email)) {
+        emailError.innerHTML = "Invalid email address";
+        isValid = false;
+      }
+
+      if (password == "") {
+        passwordError.innerHTML = "Password is required";
+        isValid = false;
+      } else if (!isValidPassword(password)) {
+        passwordError.innerHTML = "Password must contain at least one capital letter, one number, and one special character";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function isValidEmail(email) {
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function isValidPassword(password) {
+      var passwordRegex = /^(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    }
+  </script>
+
+</body>
+</html>

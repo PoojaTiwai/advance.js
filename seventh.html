@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Font on Scroll Bottom</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 2000px; /* Adding height for demonstration */
+    }
+    p {
+      font-size: 16px;
+      transition: font-size 0.5s ease; /* Smooth transition effect */
+    }
+  </style>
+</head>
+<body onscroll="changeFontOnScroll()">
+
+  <p id="myParagraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget lectus in felis finibus sollicitudin nec in odio.</p>
+
+  <script>
+    function changeFontOnScroll() {
+      var paragraph = document.getElementById('myParagraph');
+      var scrollPosition = window.scrollY;
+      var windowHeight = window.innerHeight;
+      var contentHeight = document.body.scrollHeight;
+
+      // Check if user has scrolled to the bottom of the page
+      if (scrollPosition + windowHeight >= contentHeight) {
+        paragraph.style.fontFamily = 'Courier New, monospace'; // Change font size
+      } else {
+        paragraph.style.fontSize = '16px'; // Revert to initial font size
+      }
+    }
+  </script>
+
+</body>
+</html>

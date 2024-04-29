@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>// Function to prompt the user for subject numbers
+    function getSubjectNumbers() {
+        return new Promise((resolve, reject) => {
+            const subjects = ['Math', 'Science', 'English', 'History', 'Geography']; // List of subjects
+            const marks = {}; // Object to store marks for each subject
+    
+            // Use async/await to handle asynchronous user input
+            async function getMarks() {
+                for (let subject of subjects) {
+                    let marksInput = await promptAsync(`Enter marks for ${subject}:`);
+                    marksInput = parseFloat(marksInput);
+                    
+                    // Validate input (marks should be a number between 0 and 100)
+                    while (isNaN(marksInput) || marksInput < 0 || marksInput > 100) {
+                        marksInput = await promptAsync(`Invalid input! Please enter marks for ${subject} (between 0 and 100):`);
+                        marksInput = parseFloat(marksInput);
+                    }
+                    
+                    // Store marks for the subject
+                    marks[subject] = marksInput;
+                }
+                resolve(marks);
+            }
+    
+            getMarks();
+        });
+    }
+    
+    // Function to display marksheet
+    function displayMarksheet(marks) {
+        console.log("Marksheet:");
+        console.log("-------------");
+        
+        // Display marks for each subject
+        for (let subject in marks) {
+            console.log(`${subject}: ${marks[subject]}`);
+        }
+    
+        console.log("-------------");
+        const { totalMarks, percentage } = calculateTotalAndPercentage(marks);
+        console.log(`Total Marks: ${totalMarks}`);
+        console.log(`Percentage: ${percentage}%`);
+    }
+    
+    // Function to calculate total marks and percentage
+    function calculateTotalAndPercentage(marks) {
+        let totalMarks = 0;
+    
+        // Loop through marks and calculate total marks
+        for (let subject in marks) {
+            totalMarks += marks[subject];
+        }
+    
+        // Calculate percentage
+        let percentage = (totalMarks / (Object.keys(marks).length * 100)) * 100;
+    
+        return { totalMarks, percentage };
+    }
+    
+    // Function to prompt user input asynchronously
+    function promptAsync(message) {
+        return new Promise((resolve) => {
+            let userInput = prompt(message);
+            resolve(userInput);
+        });
+    }
+    
+    // Main function to run the program
+    async function runProgram() {
+        const marks = await getSubjectNumbers();
+        displayMarksheet(marks);
+    }
+    
+    // Call the main function to run the program
+    runProgram();
+    
+    </script> 
+</body>
+</html>
